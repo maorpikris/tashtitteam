@@ -27,11 +27,6 @@ class ReportProblemScreen extends React.Component {
           <div className="m-4">
             <form>
               <div className="mb-3">
-                <canvas
-                  width="900"
-                  height="900"
-                  className="webgl-canvas js-globe-canvas cursor-pointer"
-                ></canvas>
                 <input
                   onChange={this.formChanged}
                   type="email"
