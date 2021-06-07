@@ -1,4 +1,5 @@
 import React from "react";
+import "./Home.css";
 
 import Table from "../components/Table";
 
@@ -33,9 +34,16 @@ class Home extends React.Component {
 
   render() {
     return (
-      <div className="container mt-5 mx-auto">
-        <h1 className="my-4">פניות</h1>
-        <Table requests={this.tempData} />
+      <div className="container">
+        <div className="mt-5 mx-auto text-center">
+          <h2 className="my-4">טבלת הפניות הטענות והמענות</h2>
+          <Table requests={this.tempData} />
+        </div>
+        <div className="text-start">
+          <button className="btn addButton">
+            <h1>+</h1>
+          </button>
+        </div>
       </div>
     );
   }

@@ -37,8 +37,8 @@ class Table extends React.Component {
   render() {
     return (
       <>
-        <table className="table table-hover">
-          <thead className="table-dark">
+        <table className="table table-hover table-bordered">
+          <thead className="">
             <tr>
               <th scope="col">id</th>
               <th scope="col">שם</th>
