@@ -1,2 +1,2 @@
 # tashtitteam
-https://dbdiagram.io/d/60bdfa19b29a09603d18487c
+https://dbdiagram.io/d/60bdfc26b29a09603d1848d2
