@@ -14,6 +14,10 @@ app.get('/', (req, res) => {
     res.json({ info: 'Works!'})
 })
 
+app.post('/login', (req, res) => {
+    
+})
+
 app.listen(port, () => {
     console.log(`App running on port ${port}.`)
 })
