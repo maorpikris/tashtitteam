@@ -23,11 +23,11 @@ class Table extends React.Component {
     const token = window.localStorage.getItem("token");
 
     if (token) {
-      const fullRequest = await axios.get(`base/requests/${request.id}`, {
-        headers: {
-          Authorization: token
-        }
-      });
+      // const fullRequest = await axios.get(`base/requests/${request.id}`, {
+      //   headers: {
+      //     Authorization: token
+      //   }
+      // });
     }
 
     await this.setState({ currentRequest: request });

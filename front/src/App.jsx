@@ -1,6 +1,9 @@
 import React, { useState } from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+
 import ReportProblemScreen from "./views/ReportProblemScreen";
 import Home from "./views/Home";
+import Login from "./views/Login";
 import "./App.css";
 
 function App() {
@@ -8,7 +11,19 @@ function App() {
 
   return (
     <div className="App">
-      <Home />
+      <Router>
+        <Switch>
+          <Route path="/report">
+            <ReportProblemScreen />
+          </Route>
+          <Route path="/login">
+            <Login />
+          </Route>
+          <Route path="/">
+            <Home />
+          </Route>
+        </Switch>
+      </Router>
     </div>
   );
 }
