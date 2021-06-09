@@ -19,7 +19,7 @@ class ReportProblemScreen extends React.Component {
 
   formSubmitted = async event => {
     event.preventDefault();
-    //const res = await axios.post("url/requests", this.state);
+    const res = await axios.post("http://localhost:3001/requests/add", this.state);
     this.setState(this.initialState);
     Swal.fire({
       title: "דיווח נוסף בהצלחה",

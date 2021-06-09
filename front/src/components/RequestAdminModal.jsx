@@ -1,6 +1,8 @@
 import React from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import axios from "axios";
+
 
 class RequestAdminModal extends React.Component {
   constructor(props) {
@@ -13,13 +15,28 @@ class RequestAdminModal extends React.Component {
     }
   }
 
-  handleClose = () => this.props.closeModal();
+  handleClose = () => {
+    this.props.bottomCallback()
+      event.preventDefault()
+    this.props.closeModal()};
 
   statusChanged = async event => {
     await this.setState({ status: event.target.value });
-    console.log(this.state.status);
-  };
+    console.log({
+      newState: event.target.value,
+      requestId: this.props.request.id
+        });
 
+    axios({
+      method: 'post',
+      url: 'http://localhost:3001/requests/updatestate',
+      data: {
+      newState: event.target.value,
+      requestId: this.props.request.id
+        }
+    })
+  };
+  
   render() {
     if (this.props.request) {
       return (

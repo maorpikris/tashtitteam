@@ -9,6 +9,11 @@ class Table extends React.Component {
     this.state = { show: false, currentRequest: undefined };
   }
 
+  middleCallback = () => {
+    this.props.middleCallback()
+    event.preventDefault()
+  }
+
   statusToString = status => {
     if (status == 0) {
       return "בהמתנה";
@@ -21,8 +26,9 @@ class Table extends React.Component {
 
   openAdminModal = async request => {
     const token = window.localStorage.getItem("token");
-
     if (token) {
+      await this.setState({ currentRequest: request });
+      this.setState({ show: true });
       // const fullRequest = await axios.get(`base/requests/${request.id}`, {
       //   headers: {
       //     Authorization: token
@@ -30,8 +36,6 @@ class Table extends React.Component {
       // });
     }
 
-    await this.setState({ currentRequest: request });
-    this.setState({ show: true });
   };
 
   render() {
@@ -68,6 +72,7 @@ class Table extends React.Component {
           </tbody>
         </table>
         <RequestAdminModal
+          bottomCallback = {this.middleCallback}
           show={this.state.show}
           closeModal={() => this.setState({ show: false })}
           request={this.state.currentRequest}

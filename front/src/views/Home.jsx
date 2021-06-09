@@ -1,6 +1,7 @@
-import React from "react";
+import React, {useEffect} from "react";
 import "./Home.css";
 import adminIcon from "../assets/admin.svg";
+import axios from "axios";
 
 import Table from "../components/Table";
 import ReactTooltip from "react-tooltip";
@@ -9,108 +10,29 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 class Home extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      requests: []
+    }
   }
 
-  tempData = [
-    {
-      id: 123,
-      name: "maor",
-      phone: "045345234",
-      department: "מודיעין",
-      body:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-      status: "0",
-      created_at: "10/21/2002"
-    },
-    {
-      name: "eitan",
-      phone: "24352345",
-      body: "asdfccvf",
-      status: "1"
-    },
-    {
-      name: "asd",
-      phone: "24352345",
-      body: "asdfccvf",
-      status: "2"
-    },
-    {
-      id: 123,
-      name: "maor",
-      phone: "045345234",
-      department: "מודיעין",
-      body:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-      status: "0",
-      created_at: "10/21/2002"
-    },
-    {
-      name: "eitan",
-      phone: "24352345",
-      body: "asdfccvf",
-      status: "1"
-    },
-    {
-      name: "asd",
-      phone: "24352345",
-      body: "asdfccvf",
-      status: "2"
-    },
-    {
-      id: 123,
-      name: "maor",
-      phone: "045345234",
-      department: "מודיעין",
-      body:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-      status: "0",
-      created_at: "10/21/2002"
-    },
-    {
-      name: "eitan",
-      phone: "24352345",
-      body: "asdfccvf",
-      status: "1"
-    },
-    {
-      name: "asd",
-      phone: "24352345",
-      body: "asdfccvf",
-      status: "2"
-    },
-    {
-      id: 123,
-      name: "maor",
-      phone: "045345234",
-      department: "מודיעין",
-      body:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-      status: "0",
-      created_at: "10/21/2002"
-    },
-    {
-      name: "eitan",
-      phone: "24352345",
-      body: "asdfccvf",
-      status: "1"
-    },
-    {
-      name: "asd",
-      phone: "24352345",
-      body: "asdfccvf",
-      status: "2"
-    },
-    {
-      id: 123,
-      name: "maor",
-      phone: "045345234",
-      department: "מודיעין",
-      body:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-      status: "0",
-      created_at: "10/21/2002"
-    }
-  ];
+  topCallback = () => {
+    axios.get(`http://localhost:3001/requests/all`)
+    .then(res => {
+      const requests = res.data;
+      console.log(res.data)
+      this.setState({requests: requests})
+    })
+  }
+
+  componentWillMount(){
+    axios.get(`http://localhost:3001/requests/all`)
+    .then(res => {
+      const requests = res.data;
+      console.log(res.data)
+      this.setState({requests: requests})
+    })
+  }
+
 
   render() {
     return (
@@ -130,7 +52,9 @@ class Home extends React.Component {
           <div className="mt-5 mx-auto text-center">
             <h2 className="my-4">טבלת הפניות הטענות והמענות</h2>
 
-            <Table className="mb-5" requests={this.tempData} />
+            <Table className="mb-5" 
+            middleCallback = {this.topCallback}
+            requests={this.state.requests} />
           </div>
 
           <div className="position-absolute bottom-0 end-0 mb-4 mx-4">

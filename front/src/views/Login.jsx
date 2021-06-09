@@ -28,22 +28,22 @@ class Login extends React.Component {
 
   login = async () => {
     if (this.state.username && this.state.password) {
-      //const res = axios.post("", this.state);
-      const res = { status: 200, body: { token: "maor" } };
-      if (res.status == 200) {
-        window.localStorage.setItem("token", res.body.token);
-        Swal.fire({
-          title: "ברוך הבא אדמין יקר",
-          icon: "success",
-          confirmButtonText: `תודה`
-        }).then(r => (window.location.href = "http://localhost:3000"));
-      } else {
+      axios.post("http://localhost:3001/admins/login", this.state).then(res => {
+        if (res.status == 200 || res.status == 204) {
+          window.localStorage.setItem("token", res.data);
+          Swal.fire({
+            title: "ברוך הבא אדמין יקר",
+            icon: "success",
+            confirmButtonText: `תודה`
+          }).then(r => (window.location.href = "http://localhost:3000"));
+        }
+      }).catch(err => {
         Swal.fire({
           title: "טעות בפרטים",
           icon: "error",
           confirmButtonText: `באסה`
         });
-      }
+      })
     }
   };
 

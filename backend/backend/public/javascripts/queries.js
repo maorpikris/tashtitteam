@@ -19,8 +19,6 @@ const getAdminCount = async (req,res) => {
 }
 
 const getAdminByCount = async (username, password) => {
-  username = 'eitan'
-  password = '123'
  const result = await client.query(`SELECT COUNT(*) 
                     FROM t_admins 
                     WHERE username = $1 AND
@@ -31,8 +29,29 @@ const getAdminByCount = async (username, password) => {
 }
 
 const getAllRequests = async () => {
-  const result = await client.query(`SELECT request_id AS id, name, phone_num AS phone, department, state AS status
+  const result = await client.query(`SELECT request_id AS id, name, phone_num AS phone, department, state AS status, body
                                      FROM t_requests`)
-  return(result.rows)
+
+                                     return(result.rows)
 }
-module.exports= {getAllRequests, getAdminCount, getAdminByCount, client}
+
+const updateRequestState = async(newState, requestId) => {
+  const result = await client.query(`UPDATE t_requests
+                                     SET state = $1
+                                     WHERE request_id = $2`, [
+                                       newState, requestId
+                                     ])
+                                     console.log(result.rowCount)
+                                     return(result.rowCount) 
+}
+
+const addRequest = async(requestDetails) => {
+  const result = await client.query(`INSERT INTO t_requests(name, phone_num, department, body)
+                                     VALUES ($1, $2, $3, $4)`, [
+                                       requestDetails.senderName, requestDetails.phoneNum, requestDetails.department, requestDetails.content
+                                     ])
+                                     console.log(result)
+                                     return(result)
+}
+module.exports= {addRequest, updateRequestState, getAllRequests, getAdminCount, getAdminByCount, client}
+
