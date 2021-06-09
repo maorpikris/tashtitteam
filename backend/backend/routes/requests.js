@@ -1,13 +1,17 @@
 var express = require('express');
 var router = express.Router();
+const queries = require('../public/javascripts/queries')
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  await queries.client.end((err) => console.log(err))
+  await queries.client.connect((err) => console.log(err))
+  res.send('connected to client');
 });
 
 router.get('/all', function(req, res) {
-  //return all request rows only with name, phone_num, department, state
+   const result = queries.getAllRequests()
+   res.send(result)
 })
 
 module.exports = router;
