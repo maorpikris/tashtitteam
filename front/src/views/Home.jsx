@@ -10,7 +10,19 @@ class Home extends React.Component {
   constructor(props) {
     super(props);
   }
+  onCreation() {
+    fetch("/requests");
+  }
 
+  getRequests() {
+    const [data, setData] = React.useState(null);
+
+    React.useEffect(() => {
+      fetch("/requests/all").then(res =>
+        res.json().then(data => setData(data))
+      );
+    });
+  }
   tempData = [
     {
       id: 123,
